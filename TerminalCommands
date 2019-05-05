@@ -1,0 +1,22 @@
+#ESP32 - flash commands
+esptool.py --chip esp32 --port /dev/ttyUSB0 erase_flash
+esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 115200 write_flash -z 0x1000 esp8266-20180511-v1.9.4.bin
+
+#ESP8266 - flash commands
+esptool.py --port /dev/ttyUSB0 erase_flash
+esptoo.py --port /dev/ttyUSB0 --baud 115200 write_flash --flash_size=detect 0 esp32-20190125-v1.10.bin
+
+#Access Terminal
+sudo picocom /dev/ttyUSB0 -b115200
+
+#Write code onto boards
+ampy --port /dev/ttyUSB0 put 'script.py' main.py
+
+#displays connections
+dmesg | grep tty 
+
+#shows files on huzzah
+ampy --port /dev/ttyUSB0 ls 
+
+#Run file on huzzah
+ampy --port /dev/ttyUSB0 run LOCAL_FILE_NAME

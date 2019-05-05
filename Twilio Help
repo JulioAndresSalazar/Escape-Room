@@ -1,0 +1,9 @@
+cd Documents/sms_folder #navigates to the folder
+source bin/activate #to activate virtualenv
+python run.py #runs script to create the Hello World page and reply page 
+
+in a new terminal: ./ngrok http 5000
+
+now you can send a message to the twilio server (must match the URL)
+
+copy the URL + /sms into browser url bar 
