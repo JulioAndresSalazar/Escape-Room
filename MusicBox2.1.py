@@ -73,7 +73,8 @@ line2 = [G, G, A, G, D, C]
 line3 = [G, G, G2, E, C, B, A]
 line4 = [F, F, E, C, D, C]
 
-def noteValue(): #listens for button push
+def noteValue(): 
+    #This function returns a note given the correct button is pressed
     while True:
         if green.value() == True:
             beep(F)
@@ -90,48 +91,41 @@ def noteValue(): #listens for button push
         if blue.value() == True:
             beep(G)
             return G
-#         if newcolor.value() == True:
-#            beep(newnote)
-#            return newnote       
         else:
-#            utime.sleep(0.05)
             continue
 
 def noteCheck(line):
-    while True: #while True
-        note = noteValue() #let buttons beep
-        if note == line[0]: #if the button pressed matches line[0]
-            return True #return a True
-        elif note != line[0]: #if button is NOT the one in code, wrong button
+    #This function checks whether the button pressed is the correct one for a given music line 
+    while True:
+        note = noteValue() 
+        if note == line[0]:
+            return True 
+        elif note != line[0]: 
             return False
         
 def songCode(line):
-    original_line = line #creates variable of the song "code"
+    #This is the main function. Uses previous functions to run Music Box Puzzle
+    original_line = line
     while True: 
-        check = noteCheck(line) #waits for buttons to be pushed. if correct button pushed, returns true
-        for i in range(len(line)-1): #for the length of the note code...
-            if check == True: #if the button pressed was correct:
-                reordered_line = reorder(line) #reorder the code 
-                check = noteCheck(reordered_line)  #waits for next button to be pressed 
-                line = reordered_line #resets the variable and does it again
-            elif check == False: #if at ANY time, the wrong buton is pressed...
-                line= original_line #we reset the line variable..
-                break #Then we break from the loop
-        if check == True: #If we managed to put in all the correct color..
-            break #we break from the second loop
-        elif check == False: #If we input any wrong buttons, this value is False
-            #line = original_line
+        check = noteCheck(line) 
+        for i in range(len(line)-1): 
+            if check == True: 
+                reordered_line = reorder(line)
+                check = noteCheck(reordered_line) 
+                line = reordered_line 
+            elif check == False:
+                line= original_line 
+                break 
+        if check == True: 
+            break 
+        elif check == False: 
             continue
     playSongLine(line2)
     playSongLine(line3)
     playSongLine(line4)
 
-
-#cloudPut("LEDPuzzle", "STRING", "SOLVED")
-#
-#res = cloudGet("SongString")
-#print(res)
-
+    
+#Start of main loop
 while True:  
     status = cloudGet("LEDPuzzle")  
     print(status)
@@ -160,19 +154,4 @@ while True:
     elif status == "SOLVED":
         print('waiting')
         utime.sleep(1)
-
-
-
-
-
-#def testLED(color):
-#    while True:
-#        if color.value() == 1:
-#            print('high')
-##            utime.sleep(0.5)
-#        elif color.value() == 0:
-#            print('low')
-#            #utime.sleep(0.5)
-            
-
 
