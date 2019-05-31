@@ -1,14 +1,13 @@
+#Import necessary libraries
+import ujson, urequests, utime, machine
 
-import ujson, urequests, utime, machine, urandom
-
-#DO NOT CHANGE
-#API Info
+#API Info Setup
 Key = "sfIbD4eYzaMBqna_rZW5XQL2BR77CLb2I4BDvI6uxt" #global
 urlBase = "https://api.systemlinkcloud.com/nitag/v2/tags/" #global
 headers = {"Accept":"application/json","x-ni-api-key":Key} #global
 
-#Updates tag in cloud
 def cloudPut(tag, tag_type, val):
+    #This function updates a tag in the cloud
     Value = val
     Type = tag_type
     propValue = {"value":{"type":Type,"value":Value}}
@@ -17,6 +16,7 @@ def cloudPut(tag, tag_type, val):
     #requests.put(urlValue,headers=headers,json=propValue).text 
 
 def cloudGet(tag):
+    #This functions reads a tag value from the cloud
     urlValue = urlBase + tag + "/values/current"
     value = urequests.get(urlValue,headers=headers).text
     data = ujson.loads(value)
@@ -24,10 +24,6 @@ def cloudGet(tag):
     return result
 
 #This section initializes pins
-#16, 15, 13, 12, 14 are digital read 
-#4 is speaker pwm
-#DO NOT CHANGE unless adding new color
-#Format: newcolor = machine.Pin(new pin, machine.Pin.IN)110
 blue = machine.Pin(16, machine.Pin.IN)
 white = machine.Pin(15, machine.Pin.IN)
 yellow = machine.Pin(13, machine.Pin.IN)
@@ -35,8 +31,8 @@ red = machine.Pin(12, machine.Pin.IN)
 green = machine.Pin(14, machine.Pin.IN)
 pwm = machine.PWM(machine.Pin(4))
         
-#Makes the speaker beep at a given frequency 
 def beep(frequency):
+    #This function makes the speaker beep at a given frequency 
     pwm.freq(frequency)
     for i in range(1024):
         pwm.duty(i)
@@ -46,18 +42,8 @@ def beep(frequency):
         utime.sleep(0.0001) #originally 0.001 
     pwm.deinit()
 
-#Note frequencies
-#G = 392
-#A = 440
-#B = 493
-#C = 523
-#D = 587
-#E = 659
-#F = 698
-#G2 = 783
-
-#This function plays any line of notes fed to it
 def playSongLine(line):
+    #This function plays any line of notes fed to it 
     i = 0
     for i in range(len(line)):    
         beep(line[i])
@@ -65,12 +51,13 @@ def playSongLine(line):
         i += 1
     utime.sleep(0.2)
 
-#Sends first element to end of list
 def reorder(list):
+    #This function sends the first element of a list to end of list
     new = list[1:]
     new.append(list[0])
     return new
 
+#Defines note frequencies
 G = 392
 A = 440
 B = 493
