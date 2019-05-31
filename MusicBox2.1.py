@@ -125,7 +125,7 @@ def songCode(line):
     playSongLine(line4)
 
     
-#Start of main loop
+#Start of main loop. Music box waits for correct sequence of notes to be pressed. Once acknowledged, it updates tag value in the cloud to unlock a clue box
 while True:  
     status = cloudGet("LEDPuzzle")  
     print(status)
