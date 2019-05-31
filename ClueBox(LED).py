@@ -2,9 +2,9 @@
 import ujson, urequests, utime, machine, urandom
 
 #API Info
-Key = "sfIbD4eYzaMBqna_rZW5XQL2BR77CLb2I4BDvI6uxt" #global
-urlBase = "https://api.systemlinkcloud.com/nitag/v2/tags/" #global
-headers = {"Content-Type":"application/json", "Accept":"application/json","x-ni-api-key":Key} #global
+Key = "sfIbD4eYzaMBqna_rZW5XQL2BR77CLb2I4BDvI6uxt" 
+urlBase = "https://api.systemlinkcloud.com/nitag/v2/tags/" 
+headers = {"Content-Type":"application/json", "Accept":"application/json","x-ni-api-key":Key} 
 
 def cloudGet(tag_name):
     #This function returns the tag value from the cloud
